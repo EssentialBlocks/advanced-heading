@@ -1,11 +1,12 @@
 === Advanced Heading ===
 Contributors: wpdevteam, re_enter_rupok, Asif2BD, rahat89, jamilbd07, fencermonir
-Tags: block, blocks, heading, Advanced Heading, title, title block, title with subtitle, separator, gutenberg, gutenberg blocks, Gutenberg block library, essential blocks
-Requires at least: 5.0
-Tested up to: 6.2
-Stable tag: 1.1.4
+Tags: heading, advanced heading, gutenberg, title, subtitle
+Requires at least: 6.6
+Requires PHP: 7.4
+Tested up to: 7.0
+Stable tag: 2.0.0
 License: GPLv3 or later
-License URI: http://www.gnu.org/licenses/gpl-3.0.html
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Create Advanced Heading with Title, Subtitle and Separator Controls
 
@@ -80,6 +81,18 @@ Yes, it will work with any standard WordPress theme.
 
 == Changelog ==
 
+= 2.0.0 =
+* Rebuilt from the latest Essential Blocks codebase — 100% free, no PRO upsells.
+* Updated for the latest WordPress and PHP versions.
+* Your existing headings keep working — nothing breaks.
+* New: text effects, multi-part titles, dynamic post-title heading, and icon separators.
+* Cleaner editor: removed all PRO-only options from the Advanced tab.
+* Works safely alongside Essential Blocks (steps aside automatically when it is active).
+
+= 1.1.5 - 17/04/2024 =
+* Fixed: compatibility support with WordPress 6.5 version
+* Improved: controls
+
 = 1.1.4 - 03/04/2023 =
 * Improved: font loader and controls
 
@@ -103,3 +116,6 @@ Yes, it will work with any standard WordPress theme.
 * Initial Release
 
 == Upgrade Notice ==
+
+= 2.0.0 =
+Modernized for the latest PHP & WordPress and made fully backward compatible. Existing headings are untouched. If you also run Essential Blocks, this plugin now steps aside automatically.

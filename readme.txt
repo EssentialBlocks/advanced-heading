@@ -1,9 +1,10 @@
 === Advanced Heading ===
 Contributors: wpdevteam, re_enter_rupok, Asif2BD, rahat89, jamilbd07, fencermonir
 Tags: block, blocks, heading, Advanced Heading, title, title block, title with subtitle, separator, gutenberg, gutenberg blocks, Gutenberg block library, essential blocks
-Requires at least: 5.0
-Tested up to: 6.5
-Stable tag: 1.1.5
+Requires at least: 6.0
+Tested up to: 7.0
+Requires PHP: 7.4
+Stable tag: 1.5.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -79,6 +80,12 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 1.5.0 - 10/08/2026 =
+* Improved: Compatibility with PHP 7.4 – 8.5 and WordPress 6.0 – 7.0
+* Fixed: Fatal error when the bundled style handler was missing from the package
+* Fixed: PHP 8 warnings while collecting Google Font families from block attributes
+* Improved: Sanitized admin query string handling and hardened build-asset loading
 
 = 1.1.5 - 17/04/2024 =
 * Fixed: compatibility support with WordPress 6.5 version

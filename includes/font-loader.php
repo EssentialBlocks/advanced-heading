@@ -67,6 +67,10 @@ class Advanced_Heading_Font_Loader {
         $keys             = preg_grep( '/^(\w+)FontFamily/i', array_keys( $attributes ), 0 );
         $googleFontFamily = [];
         foreach ( $keys as $key ) {
+            // Non-scalar attribute values are not valid array offsets (TypeError on PHP 8+).
+            if ( ! is_string( $attributes[$key] ) || '' === $attributes[$key] ) {
+                continue;
+            }
             $googleFontFamily[$attributes[$key]] = $attributes[$key];
         }
         return $googleFontFamily;

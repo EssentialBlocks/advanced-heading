@@ -3,15 +3,23 @@
 /**
  * Plugin Name:     Advanced Heading
  * Description:     Create Advanced Heading with Title, Subtitle and Separator Controls
- * Version:         1.1.5
+ * Version:         1.5.0
  * Author:          WPDeveloper
  * Author URI:      https://wpdeveloper.net
  * License:         GPL-3.0-or-later
  * License URI:     https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:     advanced-heading
+ * Requires at least: 6.0
+ * Tested up to:    7.0
+ * Requires PHP:    7.4
  *
  * @package         advanced-heading
  */
+
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
 
 /**
  * Registers all block assets so that they can be enqueued through the block editor
@@ -23,12 +31,24 @@
 require_once __DIR__ . '/includes/font-loader.php';
 require_once __DIR__ . '/includes/post-meta.php';
 require_once __DIR__ . '/includes/helpers.php';
-require_once __DIR__ . '/lib/style-handler/style-handler.php';
+
+// The style handler is a git submodule; guard against an uninitialised checkout.
+$advanced_heading_style_handler = __DIR__ . '/lib/style-handler/style-handler.php';
+if ( file_exists( $advanced_heading_style_handler ) ) {
+    require_once $advanced_heading_style_handler;
+}
+unset( $advanced_heading_style_handler );
 
 function create_block_advanced_heading_block_init() {
-    define( 'ADVANCEDHEADING_BLOCK_VERSION', "1.1.5" );
-    define( 'ADVANCEDHEADING_BLOCK_ADMIN_URL', plugin_dir_url( __FILE__ ) );
-    define( 'ADVANCEDHEADING_BLOCK_ADMIN_PATH', dirname( __FILE__ ) );
+    if ( ! defined( 'ADVANCEDHEADING_BLOCK_VERSION' ) ) {
+        define( 'ADVANCEDHEADING_BLOCK_VERSION', "1.5.0" );
+    }
+    if ( ! defined( 'ADVANCEDHEADING_BLOCK_ADMIN_URL' ) ) {
+        define( 'ADVANCEDHEADING_BLOCK_ADMIN_URL', plugin_dir_url( __FILE__ ) );
+    }
+    if ( ! defined( 'ADVANCEDHEADING_BLOCK_ADMIN_PATH' ) ) {
+        define( 'ADVANCEDHEADING_BLOCK_ADMIN_PATH', dirname( __FILE__ ) );
+    }
 
     $script_asset_path = ADVANCEDHEADING_BLOCK_ADMIN_PATH . "/dist/index.asset.php";
     if ( ! file_exists( $script_asset_path ) ) {
@@ -36,8 +56,14 @@ function create_block_advanced_heading_block_init() {
             'You need to run `npm start` or `npm run build` for the "block/testimonial" block first.'
         );
     }
-    $index_js         = ADVANCEDHEADING_BLOCK_ADMIN_URL . 'dist/index.js';
-    $script_asset     = require $script_asset_path;
+    $index_js     = ADVANCEDHEADING_BLOCK_ADMIN_URL . 'dist/index.js';
+    $script_asset = require $script_asset_path;
+    if ( ! is_array( $script_asset ) ) {
+        $script_asset = [];
+    }
+    $script_asset['dependencies'] = isset( $script_asset['dependencies'] ) && is_array( $script_asset['dependencies'] ) ? $script_asset['dependencies'] : [];
+    $script_asset['version']      = isset( $script_asset['version'] ) ? $script_asset['version'] : ADVANCEDHEADING_BLOCK_VERSION;
+
     $all_dependencies = array_merge( $script_asset['dependencies'], [
         'wp-blocks',
         'wp-i18n',

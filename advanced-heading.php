@@ -3,7 +3,7 @@
 /**
  * Plugin Name:     Advanced Heading
  * Description:     Create Advanced Heading with Title, Subtitle and Separator Controls
- * Version:         1.5.0
+ * Version:         1.2.0
  * Author:          WPDeveloper
  * Author URI:      https://wpdeveloper.net
  * License:         GPL-3.0-or-later
@@ -41,7 +41,7 @@ unset( $advanced_heading_style_handler );
 
 function create_block_advanced_heading_block_init() {
     if ( ! defined( 'ADVANCEDHEADING_BLOCK_VERSION' ) ) {
-        define( 'ADVANCEDHEADING_BLOCK_VERSION', "1.5.0" );
+        define( 'ADVANCEDHEADING_BLOCK_VERSION', "1.2.0" );
     }
     if ( ! defined( 'ADVANCEDHEADING_BLOCK_ADMIN_URL' ) ) {
         define( 'ADVANCEDHEADING_BLOCK_ADMIN_URL', plugin_dir_url( __FILE__ ) );

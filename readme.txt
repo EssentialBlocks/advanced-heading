@@ -4,7 +4,7 @@ Tags: block, blocks, heading, Advanced Heading, title, title block, title with s
 Requires at least: 6.0
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.5.0
+Stable tag: 1.2.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -81,11 +81,13 @@ Yes, it will work with any standard WordPress theme.
 
 == Changelog ==
 
-= 1.5.0 - 10/08/2026 =
-* Improved: Compatibility with PHP 7.4 – 8.5 and WordPress 6.0 – 7.0
-* Fixed: Fatal error when the bundled style handler was missing from the package
-* Fixed: PHP 8 warnings while collecting Google Font families from block attributes
-* Improved: Sanitized admin query string handling and hardened build-asset loading
+= 1.2.0 - 12/08/2026 =
+* Fixed: PHP 8.0–8.5 compatibility issues
+* Fixed: WordPress version detection
+* Fixed: PHP 7.x compatibility
+* Fixed: Asset loading issues on newer WordPress versions
+* Improved: Asset loading and overall stability
+* Tested up to WordPress 7.0
 
 = 1.1.5 - 17/04/2024 =
 * Fixed: compatibility support with WordPress 6.5 version

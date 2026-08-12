@@ -45,9 +45,19 @@ class Advanced_Heading_Helper
         /**
          * Only for admin add/edit pages/posts
          */
-        if ($pagenow == 'post-new.php' || $pagenow == 'post.php' || $pagenow == 'site-editor.php' || ($pagenow == 'themes.php' && !empty($_SERVER['QUERY_STRING']) && str_contains($_SERVER['QUERY_STRING'], 'gutenberg-edit-site'))) {
+        $query_string = isset($_SERVER['QUERY_STRING']) ? sanitize_text_field(wp_unslash($_SERVER['QUERY_STRING'])) : '';
 
-            $controls_dependencies = include_once ADVANCEDHEADING_BLOCK_ADMIN_PATH . '/dist/modules.asset.php';
+        if ($pagenow == 'post-new.php' || $pagenow == 'post.php' || $pagenow == 'site-editor.php' || ($pagenow == 'themes.php' && !empty($query_string) && str_contains($query_string, 'gutenberg-edit-site'))) {
+
+            // `include` (not `include_once`) so the returned array is available even if
+            // the file has already been included elsewhere in the request.
+            $controls_dependencies = include ADVANCEDHEADING_BLOCK_ADMIN_PATH . '/dist/modules.asset.php';
+            if (!is_array($controls_dependencies)) {
+                $controls_dependencies = array();
+            }
+            $controls_dependencies['dependencies'] = isset($controls_dependencies['dependencies']) && is_array($controls_dependencies['dependencies']) ? $controls_dependencies['dependencies'] : array();
+            $controls_dependencies['version'] = isset($controls_dependencies['version']) ? $controls_dependencies['version'] : ADVANCEDHEADING_BLOCK_VERSION;
+
             wp_register_script(
                 "advancedheading-block-controls-util",
                 ADVANCEDHEADING_BLOCK_ADMIN_URL . 'dist/modules.js',

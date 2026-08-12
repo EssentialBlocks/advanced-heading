@@ -1,10 +1,13 @@
 {
 	"name": "advance-heading",
-	"version": "1.1.5",
+	"version": "1.2.0",
 	"description": "Create Advanced Heading with Title, Subtitle and Separator Controls",
 	"author": "The WordPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"main": "Gruntfile.js",
+	"engines": {
+		"node": ">=20"
+	},
 	"scripts": {
 		"start": "wp-scripts start",
 		"build": "wp-scripts build",

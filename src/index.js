@@ -15,16 +15,16 @@ const { ebConditionalRegisterBlockType } = EBAdvHeadingControls;
 const { name, category } = metadata;
 
 ebConditionalRegisterBlockType(metadata, {
-    keywords: [
-        __("heading", "essential-blocks"),
-        __("Advanced Heading", "essential-blocks"),
-        __("heading block", "essential-blocks"),
-        __("heading box", "essential-blocks"),
-    ],
-    icon: HeadingIcon,
-    attributes,
-    edit: Edit,
-    save,
-    example: Example,
-    deprecated,
+	keywords: [
+		__("heading", "essential-blocks"),
+		__("Advanced Heading", "essential-blocks"),
+		__("heading block", "essential-blocks"),
+		__("heading box", "essential-blocks"),
+	],
+	icon: HeadingIcon,
+	attributes,
+	edit: Edit,
+	save,
+	example: Example,
+	deprecated
 });

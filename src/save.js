@@ -1,4 +1,5 @@
 import { RichText, useBlockProps } from "@wordpress/block-editor";
+const { EBDisplayIcon } = window.EBAdvHeadingControls;
 
 const Save = ({ attributes }) => {
     const {
@@ -16,6 +17,7 @@ const Save = ({ attributes }) => {
         classHook,
     } = attributes;
 
+
     return (
         <div {...useBlockProps.save()}>
             <div
@@ -28,13 +30,13 @@ const Save = ({ attributes }) => {
                     {displaySeperator && seperatorPosition === "top" && (
                         <div className={"eb-ah-separator " + seperatorType}>
                             {seperatorType === "icon" && (
-                                <i
-                                    className={`${
-                                        separatorIcon
-                                            ? separatorIcon
-                                            : "fas fa-arrow-circle-down"
-                                    }`}
-                                ></i>
+                                // <i
+                                //     className={`${separatorIcon
+                                //         ? separatorIcon
+                                //         : "fas fa-arrow-circle-down"
+                                //         }`}
+                                // ></i>
+                                <EBDisplayIcon icon={separatorIcon} />
                             )}
                         </div>
                     )}
@@ -42,30 +44,24 @@ const Save = ({ attributes }) => {
                         tagName={tagName}
                         className="eb-ah-title"
                         value={titleText}
-                        formattingControl={["bold", "italic"]}
-                        onChange={(titleText) => setAttributes({ titleText })}
                     />
                     {displaySubtitle && (
                         <RichText.Content
                             tagName={subtitleTagName}
                             className="eb-ah-subtitle"
                             value={subtitleText}
-                            formattingControl={["bold", "italic"]}
-                            onChange={(subtitleText) =>
-                                setAttributes({ subtitleText })
-                            }
                         />
                     )}
                     {displaySeperator && seperatorPosition === "bottom" && (
                         <div className={"eb-ah-separator " + seperatorType}>
                             {seperatorType === "icon" && (
-                                <i
-                                    className={`${
-                                        separatorIcon
-                                            ? separatorIcon
-                                            : "fas fa-arrow-circle-down"
-                                    }`}
-                                ></i>
+                                // <i
+                                //     className={`${separatorIcon
+                                //         ? separatorIcon
+                                //         : "fas fa-arrow-circle-down"
+                                //         }`}
+                                // ></i>
+                                <EBDisplayIcon icon={separatorIcon} />
                             )}
                         </div>
                     )}

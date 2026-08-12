@@ -4,6 +4,5 @@
 	"title": "Advanced Heading",
 	"category": "widgets",
 	"description": "Create Advanced Heading with Title, Subtitle and Separator Controls",
-	"textdomain": "advanced-heading",
-	"editorScript": "file:./dist/index.js"
+	"textdomain": "advanced-heading"
 }

@@ -1,10 +1,13 @@
 {
 	"name": "advance-heading",
-	"version": "1.1.4",
+	"version": "1.2.0",
 	"description": "Create Advanced Heading with Title, Subtitle and Separator Controls",
 	"author": "The WordPress Contributors",
 	"license": "GPL-2.0-or-later",
 	"main": "Gruntfile.js",
+	"engines": {
+		"node": ">=20"
+	},
 	"scripts": {
 		"start": "wp-scripts start",
 		"build": "wp-scripts build",
@@ -29,7 +32,6 @@
 		"react-dom": "^17.0.2"
 	},
 	"dependencies": {
-		"@fonticonpicker/react-fonticonpicker": "hz-tyfoon/react-fonticonpicker#c5914813163490f98e1a1756a6e5a4479e777c34",
 		"classnames": "^2.3.1",
 		"react-transition-group": "^4.3.0"
 	}

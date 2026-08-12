@@ -3,15 +3,23 @@
 /**
  * Plugin Name:     Advanced Heading
  * Description:     Create Advanced Heading with Title, Subtitle and Separator Controls
- * Version:         1.1.4
+ * Version:         1.2.0
  * Author:          WPDeveloper
  * Author URI:      https://wpdeveloper.net
  * License:         GPL-3.0-or-later
  * License URI:     https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:     advanced-heading
+ * Requires at least: 6.0
+ * Tested up to:    7.0
+ * Requires PHP:    7.4
  *
  * @package         advanced-heading
  */
+
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
 
 /**
  * Registers all block assets so that they can be enqueued through the block editor
@@ -23,12 +31,37 @@
 require_once __DIR__ . '/includes/font-loader.php';
 require_once __DIR__ . '/includes/post-meta.php';
 require_once __DIR__ . '/includes/helpers.php';
-require_once __DIR__ . '/lib/style-handler/style-handler.php';
+
+// The style handler is a git submodule; guard against an uninitialised checkout.
+// Without it no per-block CSS is generated, so the frontend renders unstyled.
+// Surface that in wp-admin instead of failing silently.
+$advanced_heading_style_handler = __DIR__ . '/lib/style-handler/style-handler.php';
+if ( file_exists( $advanced_heading_style_handler ) ) {
+    require_once $advanced_heading_style_handler;
+} else {
+    add_action( 'admin_notices', function () {
+        if ( ! current_user_can( 'activate_plugins' ) ) {
+            return;
+        }
+        printf(
+            '<div class="notice notice-error"><p><strong>%1$s</strong> %2$s <code>git submodule update --init --recursive</code></p></div>',
+            esc_html__( 'Advanced Heading:', 'advanced-heading' ),
+            esc_html__( 'the lib/style-handler submodule is missing, so block styles cannot be generated on the frontend. Run:', 'advanced-heading' )
+        );
+    } );
+}
+unset( $advanced_heading_style_handler );
 
 function create_block_advanced_heading_block_init() {
-    define( 'ADVANCEDHEADING_BLOCK_VERSION', "1.1.4" );
-    define( 'ADVANCEDHEADING_BLOCK_ADMIN_URL', plugin_dir_url( __FILE__ ) );
-    define( 'ADVANCEDHEADING_BLOCK_ADMIN_PATH', dirname( __FILE__ ) );
+    if ( ! defined( 'ADVANCEDHEADING_BLOCK_VERSION' ) ) {
+        define( 'ADVANCEDHEADING_BLOCK_VERSION', "1.2.0" );
+    }
+    if ( ! defined( 'ADVANCEDHEADING_BLOCK_ADMIN_URL' ) ) {
+        define( 'ADVANCEDHEADING_BLOCK_ADMIN_URL', plugin_dir_url( __FILE__ ) );
+    }
+    if ( ! defined( 'ADVANCEDHEADING_BLOCK_ADMIN_PATH' ) ) {
+        define( 'ADVANCEDHEADING_BLOCK_ADMIN_PATH', dirname( __FILE__ ) );
+    }
 
     $script_asset_path = ADVANCEDHEADING_BLOCK_ADMIN_PATH . "/dist/index.asset.php";
     if ( ! file_exists( $script_asset_path ) ) {
@@ -36,8 +69,14 @@ function create_block_advanced_heading_block_init() {
             'You need to run `npm start` or `npm run build` for the "block/testimonial" block first.'
         );
     }
-    $index_js         = ADVANCEDHEADING_BLOCK_ADMIN_URL . 'dist/index.js';
-    $script_asset     = require $script_asset_path;
+    $index_js     = ADVANCEDHEADING_BLOCK_ADMIN_URL . 'dist/index.js';
+    $script_asset = require $script_asset_path;
+    if ( ! is_array( $script_asset ) ) {
+        $script_asset = [];
+    }
+    $script_asset['dependencies'] = isset( $script_asset['dependencies'] ) && is_array( $script_asset['dependencies'] ) ? $script_asset['dependencies'] : [];
+    $script_asset['version']      = isset( $script_asset['version'] ) ? $script_asset['version'] : ADVANCEDHEADING_BLOCK_VERSION;
+
     $all_dependencies = array_merge( $script_asset['dependencies'], [
         'wp-blocks',
         'wp-i18n',
@@ -121,7 +160,10 @@ function create_block_advanced_heading_block_init() {
         ADVANCEDHEADING_BLOCK_VERSION
     );
 
-    if ( ! WP_Block_Type_Registry::get_instance()->is_registered( 'essential-blocks/advanced-heading' ) ) {
+    // Must match the name in block.json (and the name registered from src/index.js).
+    // Checking a different name here would skip PHP registration while JS still
+    // registers the block, leaving the frontend without its stylesheet.
+    if ( ! WP_Block_Type_Registry::get_instance()->is_registered( 'advanced-heading/advanced-heading' ) ) {
         register_block_type(
             Advanced_Heading_Helper::get_block_register_path( "advanced-heading/advanced-heading", ADVANCEDHEADING_BLOCK_ADMIN_PATH ),
             [
@@ -130,6 +172,9 @@ function create_block_advanced_heading_block_init() {
                 'render_callback' => function ( $attributes, $content ) {
                     if ( ! is_admin() ) {
                         wp_enqueue_style( 'create-block-advancedheading-block-frontend-style' );
+                        // The separator icon can be a Dashicon, and core does not load
+                        // dashicons on the frontend for logged-out visitors.
+                        wp_enqueue_style( 'dashicons' );
                         wp_enqueue_script( 'essential-blocks-eb-animation' );
                     }
                     return $content;

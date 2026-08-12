@@ -80,10 +80,6 @@ const attributes = {
     titleHoverColor: {
         type: "string",
     },
-    titleColorType: {
-        type: "string",
-        default: "normal",
-    },
     subtitleColor: {
         type: "string",
         default: "#555555",
@@ -91,20 +87,12 @@ const attributes = {
     subtitleHoverColor: {
         type: "string",
     },
-    subtitleColorType: {
-        type: "string",
-        default: "normal",
-    },
     separatorColor: {
         type: "string",
         default: "#551ef7",
     },
     separatorHoverColor: {
         type: "string",
-    },
-    separatorColorType: {
-        type: "string",
-        default: "normal",
     },
     align: {
         type: "string",
@@ -132,6 +120,7 @@ const attributes = {
     },
     separatorIcon: {
         type: "string",
+        default: "fas fa-arrow-circle-down"
     },
 
     // typography attributes ⬇

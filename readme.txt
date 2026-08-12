@@ -87,7 +87,7 @@ Yes, it will work with any standard WordPress theme.
 * Fixed: PHP 7.x compatibility
 * Fixed: Asset loading issues on newer WordPress versions
 * Improved: Asset loading and overall stability
-* Tested up to WordPress 7.0
+* Tested up to WordPress 7.0.3
 
 = 1.1.5 - 17/04/2024 =
 * Fixed: compatibility support with WordPress 6.5 version

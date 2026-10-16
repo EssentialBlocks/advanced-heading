@@ -88,6 +88,12 @@ controls
 lib/style-handler/style-handler.js
 lib/style-handler/helpers.js
 
+# --- Unused controls helper bundle -----------------------------------------
+# The controls submodule build also emits dist/frontend.* (window.eb_frontend).
+# Nothing in this plugin registers or enqueues it.
+dist/frontend.js
+dist/frontend.asset.php
+
 # --- Source maps (dev-only; ~3.6 MB of the package) ------------------------
 *.map
 

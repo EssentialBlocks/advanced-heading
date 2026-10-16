@@ -29,7 +29,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 
 require_once __DIR__ . '/includes/font-loader.php';
-require_once __DIR__ . '/includes/post-meta.php';
 require_once __DIR__ . '/includes/helpers.php';
 
 // The style handler is a git submodule; guard against an uninitialised checkout.

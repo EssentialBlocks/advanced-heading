@@ -79,7 +79,25 @@ Yes, it will work with any standard WordPress theme.
 == Screenshots ==
 
 
+== External services ==
+
+This plugin can load fonts from Google Fonts, a service provided by Google LLC.
+
+* **What and when:** when an Advanced Heading block on a page uses a Google font (any Typography "Font Family" setting other than Default), the page requests that font's stylesheet from `https://fonts.googleapis.com`, and the fonts themselves from `https://fonts.gstatic.com`. Pages whose headings keep the default fonts make no request.
+* **What is sent:** the visitor's browser sends its IP address, user agent and the page address (referrer) to Google, as with any embedded web font. The plugin sends no other data.
+* **Google Fonts terms:** https://developers.google.com/fonts/terms
+* **Google privacy policy:** https://policies.google.com/privacy
+
+To avoid the request, keep the heading typography on Default or a font your theme already provides.
+
 == Changelog ==
+
+= 1.3.0 - 16/10/2026 =
+* Fixed: Replaced the bundled animate.css 4.1.1 (Hippocratic License 2.1, not GPL-compatible) with animate.css 3.7.2 (MIT). Every animation offered in the Advanced tab is still available
+* Security: Hardened the generated block CSS for authors without the unfiltered_html capability, and reusable block references
+* Removed: The unused `_eb_attr` post meta registration, which exposed the meta in the REST API without being used by the plugin
+* Removed: The unused front-end icon helper script (dist/frontend.js), which nothing loaded
+* Improved: Documented the Google Fonts request in an External services section
 
 = 1.2.0 - 12/08/2026 =
 * Fixed: PHP 8.0–8.5 compatibility issues

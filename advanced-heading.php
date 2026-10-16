@@ -3,14 +3,14 @@
 /**
  * Plugin Name:     Advanced Heading
  * Description:     Create Advanced Heading with Title, Subtitle and Separator Controls
- * Version:         1.2.0
+ * Version:         1.3.0
  * Author:          WPDeveloper
  * Author URI:      https://wpdeveloper.net
  * License:         GPL-3.0-or-later
  * License URI:     https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:     advanced-heading
  * Requires at least: 6.0
- * Tested up to:    7.0
+ * Tested up to:    7.1
  * Requires PHP:    7.4
  *
  * @package         advanced-heading
@@ -30,6 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once __DIR__ . '/includes/font-loader.php';
 require_once __DIR__ . '/includes/helpers.php';
+require_once __DIR__ . '/includes/dynamic-title.php';
 
 // The style handler is a git submodule; guard against an uninitialised checkout.
 // Without it no per-block CSS is generated, so the frontend renders unstyled.
@@ -53,7 +54,7 @@ unset( $advanced_heading_style_handler );
 
 function create_block_advanced_heading_block_init() {
     if ( ! defined( 'ADVANCEDHEADING_BLOCK_VERSION' ) ) {
-        define( 'ADVANCEDHEADING_BLOCK_VERSION', "1.2.0" );
+        define( 'ADVANCEDHEADING_BLOCK_VERSION', "1.3.0" );
     }
     if ( ! defined( 'ADVANCEDHEADING_BLOCK_ADMIN_URL' ) ) {
         define( 'ADVANCEDHEADING_BLOCK_ADMIN_URL', plugin_dir_url( __FILE__ ) );
@@ -168,7 +169,7 @@ function create_block_advanced_heading_block_init() {
             [
                 'editor_script'   => 'create-block-advancedheading-block-editor-script',
                 'editor_style'    => 'create-block-advancedheading-block-editor-style',
-                'render_callback' => function ( $attributes, $content ) {
+                'render_callback' => function ( $attributes, $content, $block = null ) {
                     if ( ! is_admin() ) {
                         wp_enqueue_style( 'create-block-advancedheading-block-frontend-style' );
                         // The separator icon can be a Dashicon, and core does not load
@@ -176,6 +177,17 @@ function create_block_advanced_heading_block_init() {
                         wp_enqueue_style( 'dashicons' );
                         wp_enqueue_script( 'essential-blocks-eb-animation' );
                     }
+
+                    // "Dynamic Title" headings (latest design only) save no markup.
+                    if (
+                        is_array( $attributes )
+                        && isset( $attributes['source'], $attributes['designVersion'] )
+                        && 'dynamic-title' === $attributes['source']
+                        && (int) $attributes['designVersion'] >= 2
+                    ) {
+                        return advanced_heading_render_dynamic_title( $attributes, $block );
+                    }
+
                     return $content;
                 }
             ]

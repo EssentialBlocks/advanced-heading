@@ -51,8 +51,8 @@ const attributes = {
         default: "button-1",
     },
 
-    // Unset on blocks saved before 1.3.0, which keep their original markup.
-    // Blocks inserted from 1.3.0 on get LATEST_DESIGN_VERSION (see helpers.js).
+    // Unset on blocks saved before 1.2.1, which keep their original markup.
+    // Blocks inserted from 1.2.1 on get LATEST_DESIGN_VERSION (see helpers.js).
     designVersion: {
         type: "number",
     },

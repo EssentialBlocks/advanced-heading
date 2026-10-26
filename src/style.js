@@ -299,7 +299,7 @@ export default function Style(props) {
 	`;
 
     // Title styles css in strings ⬇
-    // Blocks saved before 1.3.0: colour and typography sit on the title tag.
+    // Blocks saved before 1.2.1: colour and typography sit on the title tag.
     const legacyTitleStylesDesktop = `
 		.eb-advance-heading-wrapper.${blockId} .eb-ah-title {
 			text-align: ${align};
@@ -407,7 +407,7 @@ export default function Style(props) {
 	`;
 
     /*
-     * Latest design (1.3.0+): colour, typography, padding and border sit on the
+     * Latest design (1.2.1+): colour, typography, padding and border sit on the
      * title parts (.first-title, .second-title, .third-title), colours may be
      * gradients, and the alignment is responsive.
      */

@@ -1,7 +1,7 @@
 import { ALLOWED_TAGS } from "./constants/constants";
 
 /**
- * Design generation given to blocks inserted from 1.3.0 on.
+ * Design generation given to blocks inserted from 1.2.1 on.
  *
  * See the `designVersion` attribute: the title markup (first / second / third
  * title spans, heading link, effects, dynamic title) and every style that relies

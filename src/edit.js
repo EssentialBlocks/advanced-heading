@@ -133,7 +133,7 @@ export default function Edit(props) {
         </div>
     );
 
-    // Markup of blocks saved before 1.3.0 (see save.js).
+    // Markup of blocks saved before 1.2.1 (see save.js).
     const legacyContent = (
         <div
             className={`eb-advance-heading-wrapper ${blockId} ${preset}`}

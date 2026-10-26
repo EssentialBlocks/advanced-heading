@@ -4,7 +4,7 @@ Tags: block, blocks, heading, Advanced Heading, title, title block, title with s
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.0
+Stable tag: 1.2.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -94,7 +94,7 @@ To avoid the request, keep the heading typography on Default or a font your them
 
 == Changelog ==
 
-= 1.3.0 - 26/10/2026 =
+= 1.2.1 - 26/10/2026 =
 * Improved: Security enhancements
 * Few minor bug fixes & improvements
 

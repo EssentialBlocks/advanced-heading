@@ -94,25 +94,9 @@ To avoid the request, keep the heading typography on Default or a font your them
 
 == Changelog ==
 
-= 1.3.0 - 16/10/2026 =
-* Added: Second and third title text, each with its own typography, colour, hover colour, background, hover background, padding and border
-* Added: Gradient text colours for the title parts, and gradient separator colours
-* Added: Heading link, with an option to open it in a new tab
-* Added: Dynamic Title source: shows the current post's title, or each post's title inside a Query Loop, optionally linked to the post
-* Added: Marquee (speed, pause on hover) and Waviy Reflect effects
-* Added: Tablet and mobile alignment
-* Added: HTML anchor for the Advanced Heading block
-* Added: "Use latest design" option under Advanced, to turn the new features on for an existing heading
-* Fixed: With Essential Blocks active, its editor failed to load because this plugin replaced its EssentialBlocksLocalize settings
-* Fixed: Replaced the bundled animate.css 4.1.1 (Hippocratic License 2.1, not GPL-compatible) with animate.css 3.7.2 (MIT). Every animation offered in the Advanced tab is still available
-* Security: Hardened the generated block CSS for authors without the unfiltered_html capability, and reusable block references
-* Removed: The unused `_eb_attr` post meta registration, which exposed the meta in the REST API without being used by the plugin
-* Removed: The unused front-end icon helper script (dist/frontend.js), which nothing loaded
-* Improved: Documented the Google Fonts request in an External services section
-* Improved: Headings saved with earlier versions keep their markup and look, even when re-saved; the new features apply to headings added from this version on, or turned on with "Use latest design"
-* Improved: The Title, Subtitle and Link fields in the sidebar are plain text fields
-* Removed: Essential Blocks Pro preset filter in the sidebar
-* Tested up to WordPress 7.1
+= 1.3.0 - 26/10/2026 =
+* Improved: Security enhancements
+* Few minor bug fixes & improvements
 
 = 1.2.0 - 12/08/2026 =
 * Fixed: PHP 8.0–8.5 compatibility issues

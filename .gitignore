@@ -30,3 +30,9 @@ node_modules/
 index.js.map
 package-lock.json
 yarn.lock
+# Source maps are dev-only build output
+*.map
+
+# Unused controls helper bundle (see .distignore)
+dist/frontend.js
+dist/frontend.asset.php

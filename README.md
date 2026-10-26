@@ -29,7 +29,7 @@ npm run build      # production build -> dist/
 npm start          # watch mode
 ```
 
-Note that `npm run build` only builds the block entry (`src/index.js`). The `dist/modules.*` and `dist/frontend.*` bundles are produced by a separate build inside the `controls` submodule.
+Note that `npm run build` only builds the block entry (`src/index.js`). The `dist/modules.*` bundle is produced by a separate build inside the `controls` submodule. That build also emits `dist/frontend.*`, which this plugin does not use; it is git-ignored and excluded from the distribution.
 
 To package a distribution zip (respects `.distignore`):
 

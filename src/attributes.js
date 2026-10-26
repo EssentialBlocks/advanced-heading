@@ -4,11 +4,18 @@ import {
     WRAPPER_PADDING,
     WRAPPER_BORDER_SHADOW,
     TITLE_MARGIN,
+    TITLE1_PADDING,
+    TITLE1_BORDER_SHADOW,
+    TITLE2_PADDING,
+    TITLE2_BORDER_SHADOW,
+    TITLE3_PADDING,
+    TITLE3_BORDER_SHADOW,
     SUBTITLE_MARGIN,
     SEPARATOR_MARGIN,
     SEPARATOR_LINE_SIZE,
     SEPARATOR_ICON_SIZE,
     SEPARATOR_WIDTH,
+    ALIGNMENT,
 } from "./constants/constants";
 
 const {
@@ -43,6 +50,47 @@ const attributes = {
         type: "string",
         default: "button-1",
     },
+
+    // Unset on blocks saved before 1.3.0, which keep their original markup.
+    // Blocks inserted from 1.3.0 on get LATEST_DESIGN_VERSION (see helpers.js).
+    designVersion: {
+        type: "number",
+    },
+    source: {
+        type: "string",
+        default: "custom",
+    },
+    effects: {
+        type: "string",
+        default: "",
+    },
+    marqueeSpeed: {
+        type: "number",
+        default: 10,
+    },
+    marqueePauseOnHover: {
+        type: "boolean",
+        default: true,
+    },
+    title2Text: {
+        type: "string",
+    },
+    title3Text: {
+        type: "string",
+    },
+    enableLink: {
+        type: "boolean",
+        default: false,
+    },
+    titleLink: {
+        type: "string",
+        default: "",
+    },
+    openInNewTab: {
+        type: "boolean",
+        default: false,
+    },
+
     tagName: {
         type: "string",
         default: "h2",
@@ -80,6 +128,38 @@ const attributes = {
     titleHoverColor: {
         type: "string",
     },
+    titleBgColor: {
+        type: "string",
+    },
+    titleHoverBgColor: {
+        type: "string",
+    },
+    title2Color: {
+        type: "string",
+        default: "#551ef7",
+    },
+    title2HoverColor: {
+        type: "string",
+    },
+    title2BgColor: {
+        type: "string",
+    },
+    title2HoverBgColor: {
+        type: "string",
+    },
+    title3Color: {
+        type: "string",
+        default: "#551ef7",
+    },
+    title3HoverColor: {
+        type: "string",
+    },
+    title3BgColor: {
+        type: "string",
+    },
+    title3HoverBgColor: {
+        type: "string",
+    },
     subtitleColor: {
         type: "string",
         default: "#555555",
@@ -94,9 +174,17 @@ const attributes = {
     separatorHoverColor: {
         type: "string",
     },
+    // Desktop alignment keeps its 1.2.0 name and default; TABalign and MOBalign
+    // are added for tablet and mobile.
     align: {
         type: "string",
         default: "left",
+    },
+    [`TAB${ALIGNMENT}`]: {
+        type: "string",
+    },
+    [`MOB${ALIGNMENT}`]: {
+        type: "string",
     },
     displaySubtitle: {
         type: "boolean",
@@ -136,6 +224,9 @@ const attributes = {
         left: 0,
         isLinked: false,
     }),
+    ...generateDimensionsAttributes(TITLE1_PADDING),
+    ...generateDimensionsAttributes(TITLE2_PADDING),
+    ...generateDimensionsAttributes(TITLE3_PADDING),
     ...generateDimensionsAttributes(SUBTITLE_MARGIN, {
         top: 0,
         bottom: 20,
@@ -152,6 +243,9 @@ const attributes = {
     }),
 
     // border shadow attributes ⬇
+    ...generateBorderShadowAttributes(TITLE1_BORDER_SHADOW),
+    ...generateBorderShadowAttributes(TITLE2_BORDER_SHADOW),
+    ...generateBorderShadowAttributes(TITLE3_BORDER_SHADOW),
     ...generateBorderShadowAttributes(WRAPPER_BORDER_SHADOW, {
         bdrDefaults: {
             top: 0,

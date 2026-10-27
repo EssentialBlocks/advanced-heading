@@ -94,7 +94,7 @@ To avoid the request, keep the heading typography on Default or a font your them
 
 == Changelog ==
 
-= 1.2.1 - 26/10/2026 =
+= 1.2.1 - 27/10/2026 =
 * Improved: Security enhancements
 * Few minor bug fixes & improvements
 

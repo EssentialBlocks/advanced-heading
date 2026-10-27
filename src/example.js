@@ -1,5 +1,6 @@
 const Example = {
 	attributes: {
+		designVersion: 2,
 		displaySubtitle: true,
 		displaySeperator: true,
 		align: "left",

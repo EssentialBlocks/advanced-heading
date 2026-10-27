@@ -31,3 +31,108 @@
 		transition: all 0.3s ease-in-out;
 	}
 }
+
+/*
+ * Latest design (1.2.1+). Every selector below needs markup that only headings on
+ * the latest design have (title part spans, .eb-ah-link, an effect class), so
+ * headings saved by 1.2.0 and earlier are not affected.
+ */
+.eb-advance-heading-wrapper {
+	.eb-ah-title {
+		&>.first-title,
+		&>.second-title,
+		&>.third-title,
+		&>.eb-ah-link>.first-title,
+		&>.eb-ah-link>.second-title,
+		&>.eb-ah-link>.third-title {
+			display: inline;
+			font-family: inherit;
+			font-size: inherit;
+			font-weight: inherit;
+			letter-spacing: inherit;
+			line-height: inherit;
+		}
+
+		&>.eb-ah-link {
+			color: inherit;
+			text-decoration: none;
+		}
+	}
+
+	&.marquee {
+		width: 100%;
+		overflow: hidden;
+		white-space: nowrap;
+		box-sizing: border-box;
+		position: relative;
+
+		.eb-ah-title {
+			display: inline-block;
+			animation-name: eb-ah-marquee;
+			animation-timing-function: linear;
+			animation-duration: 10s;
+			animation-iteration-count: infinite;
+
+			.first-title,
+			.second-title,
+			.third-title {
+				white-space: nowrap !important;
+			}
+		}
+	}
+
+	&.waviy {
+		.eb-ah-title {
+			-webkit-box-reflect: below -20px linear-gradient(transparent, rgba(0, 0, 0, .3));
+			line-height: 1.5em;
+
+			.first-title,
+			.second-title,
+			.third-title {
+				animation: eb-ah-waviy 1s;
+				display: inline-block;
+			}
+
+			.second-title {
+				animation-delay: 1s;
+			}
+
+			.third-title {
+				animation-delay: 2s;
+			}
+		}
+	}
+}
+
+@keyframes eb-ah-marquee {
+	0% {
+		transform: translateX(100%);
+	}
+
+	100% {
+		transform: translateX(-100%);
+	}
+}
+
+@keyframes eb-ah-waviy {
+	0% {
+		transform: translateY(0);
+	}
+
+	50% {
+		transform: translateY(-20px);
+	}
+
+	100% {
+		transform: translateY(0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.eb-advance-heading-wrapper.marquee .eb-ah-title,
+	.eb-advance-heading-wrapper.waviy .eb-ah-title .first-title,
+	.eb-advance-heading-wrapper.waviy .eb-ah-title .second-title,
+	.eb-advance-heading-wrapper.waviy .eb-ah-title .third-title {
+		animation: none;
+	}
+}

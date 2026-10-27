@@ -66,21 +66,27 @@ class Advanced_Heading_Helper
                 true
             );
 
-            wp_localize_script('advancedheading-block-controls-util', 'EssentialBlocksLocalize', array(
-                'eb_wp_version' => (float) get_bloginfo('version'),
-                'rest_rootURL' => get_rest_url(),
-                'fontAwesome' => "true"
-            ));
-
-            if ($pagenow == 'post-new.php' || $pagenow == 'post.php') {
-                wp_localize_script('advancedheading-block-controls-util', 'eb_conditional_localize', array(
-                    'editor_type' => 'edit-post'
-                ));
-            } else if ($pagenow == 'site-editor.php' || $pagenow == 'themes.php') {
-                wp_localize_script('advancedheading-block-controls-util', 'eb_conditional_localize', array(
-                    'editor_type' => 'edit-site'
-                ));
-            }
+            // Essential Blocks and other standalone blocks define the same globals.
+            // wp_localize_script() would emit `var EssentialBlocksLocalize = {...}` and
+            // replace theirs (Essential Blocks' editor then fails on missing keys), so
+            // only fill in the keys that are not already set.
+            $editor_type = ($pagenow == 'post-new.php' || $pagenow == 'post.php') ? 'edit-post' : 'edit-site';
+            wp_add_inline_script(
+                'advancedheading-block-controls-util',
+                sprintf(
+                    'window.EssentialBlocksLocalize = Object.assign(%1$s, window.EssentialBlocksLocalize || {});' .
+                    'window.eb_conditional_localize = Object.assign(%2$s, window.eb_conditional_localize || {});',
+                    wp_json_encode(array(
+                        'eb_wp_version' => (float) get_bloginfo('version'),
+                        'rest_rootURL' => get_rest_url(),
+                        'fontAwesome' => "true"
+                    )),
+                    wp_json_encode(array(
+                        'editor_type' => $editor_type
+                    ))
+                ),
+                'before'
+            );
 
             wp_register_style(
 				'essential-blocks-iconpicker-css',

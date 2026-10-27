@@ -4,5 +4,13 @@
 	"title": "Advanced Heading",
 	"category": "widgets",
 	"description": "Create Advanced Heading with Title, Subtitle and Separator Controls",
-	"textdomain": "advanced-heading"
+	"textdomain": "advanced-heading",
+	"supports": {
+		"anchor": true
+	},
+	"usesContext": [
+		"postId",
+		"postType",
+		"queryId"
+	]
 }

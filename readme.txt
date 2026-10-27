@@ -1,10 +1,10 @@
 === Advanced Heading ===
-Contributors: wpdevteam, re_enter_rupok, Asif2BD, rahat89, jamilbd07, fencermonir, RahatSheikhLeon
+Contributors: wpdevteam, re_enter_rupok, Asif2BD, rahat89, RahatSheikhLeon
 Tags: block, blocks, heading, Advanced Heading, title, title block, title with subtitle, separator, gutenberg, gutenberg blocks, Gutenberg block library, essential blocks
 Requires at least: 6.0
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,6 +13,8 @@ Create Advanced Heading with Title, Subtitle and Separator Controls
 == Description ==
 
 **Advanced Heading** Use this amazing block to display the web pages and post titles more stunningly with subtitles and separators. Using Advanced Heading, you can adjust title, subtitle, and separator according to your needs. The subtitle and separator can be enabled or disabled. The Separator has 2 styles: Line and Icon, so you can use a solid, dotted, hashed, etc. line and 100+ icons. Margin, padding, background, and border of the heading wrapper can be customized with responsive options.
+
+The heading title can be built from up to three parts, each with its own typography, colour (including gradients), background, padding and border. Link the heading, show the current post's title with the Dynamic Title source (also inside a Query Loop), add a Marquee or Waviy Reflect effect, and set the alignment separately for desktop, tablet and mobile.
 
 ⚙️ **Completely Customizable:** You can customize the content, colors, etc. to make it suitable for your website design
 
@@ -79,7 +81,22 @@ Yes, it will work with any standard WordPress theme.
 == Screenshots ==
 
 
+== External services ==
+
+This plugin can load fonts from Google Fonts, a service provided by Google LLC.
+
+* **What and when:** when an Advanced Heading block on a page uses a Google font (any Typography "Font Family" setting other than Default), the page requests that font's stylesheet from `https://fonts.googleapis.com`, and the fonts themselves from `https://fonts.gstatic.com`. Pages whose headings keep the default fonts make no request.
+* **What is sent:** the visitor's browser sends its IP address, user agent and the page address (referrer) to Google, as with any embedded web font. The plugin sends no other data.
+* **Google Fonts terms:** https://developers.google.com/fonts/terms
+* **Google privacy policy:** https://policies.google.com/privacy
+
+To avoid the request, keep the heading typography on Default or a font your theme already provides.
+
 == Changelog ==
+
+= 1.2.1 - 27/10/2026 =
+* Improved: Security enhancements
+* Few minor bug fixes & improvements
 
 = 1.2.0 - 12/08/2026 =
 * Fixed: PHP 8.0–8.5 compatibility issues

@@ -5,6 +5,12 @@ import {
     WRAPPER_PADDING,
     WRAPPER_BORDER_SHADOW,
     TITLE_MARGIN,
+    TITLE1_PADDING,
+    TITLE1_BORDER_SHADOW,
+    TITLE2_PADDING,
+    TITLE2_BORDER_SHADOW,
+    TITLE3_PADDING,
+    TITLE3_BORDER_SHADOW,
     SUBTITLE_MARGIN,
     SEPARATOR_MARGIN,
     SEPARATOR_LINE_SIZE,
@@ -13,8 +19,17 @@ import {
 } from "./constants/constants";
 import {
     TITLE_TYPOGRAPHY,
+    TITLE2_TYPOGRAPHY,
+    TITLE3_TYPOGRAPHY,
     SUBTITLE_TYPOGRAPHY,
 } from "./constants/typographyPrefixConstants";
+import {
+    isLatestDesign,
+    cssRule,
+    getTextColorCss,
+    getBorderColorCss,
+    getBackgroundCss,
+} from "./helpers";
 
 /**
  * External depencencies
@@ -56,7 +71,24 @@ export default function Style(props) {
         classHook,
 
         blockRoot,
+        TABalign: alignTab,
+        MOBalign: alignMobile,
+        effects,
+        marqueeSpeed,
+        marqueePauseOnHover,
+        titleBgColor,
+        titleHoverBgColor,
+        title2Color,
+        title2HoverColor,
+        title2BgColor,
+        title2HoverBgColor,
+        title3Color,
+        title3HoverColor,
+        title3BgColor,
+        title3HoverBgColor,
     } = attributes;
+
+    const latestDesign = isLatestDesign(attributes);
 
     // CSS/styling Codes Starts from Here
     const {
@@ -267,7 +299,8 @@ export default function Style(props) {
 	`;
 
     // Title styles css in strings ⬇
-    const titleStylesDesktop = `
+    // Blocks saved before 1.2.1: colour and typography sit on the title tag.
+    const legacyTitleStylesDesktop = `
 		.eb-advance-heading-wrapper.${blockId} .eb-ah-title {
 			text-align: ${align};
 			color: ${titleColor};
@@ -279,14 +312,14 @@ export default function Style(props) {
 		}
 	`;
 
-    const titleStylesTab = `
+    const legacyTitleStylesTab = `
 		.eb-advance-heading-wrapper.${blockId} .eb-ah-title {
 			${titleTypographyTab}
 			${titleMarginTab}
 		}
 	`;
 
-    const titleStylesMobile = `
+    const legacyTitleStylesMobile = `
 		.eb-advance-heading-wrapper.${blockId} .eb-ah-title {
 			${titleTypographyMobile}
 			${titleMarginMobile}
@@ -321,7 +354,7 @@ export default function Style(props) {
 	`;
 
     // Separator styles css in strings ⬇
-    const separatorStylesDesktop = `
+    const legacySeparatorStylesDesktop = `
 		.eb-advance-heading-wrapper.${blockId} .eb-ah-separator {
 			color: ${subtitleColor};
 			${separatorMarginDesktop}
@@ -373,6 +406,154 @@ export default function Style(props) {
 		}
 	`;
 
+    /*
+     * Latest design (1.2.1+): colour, typography, padding and border sit on the
+     * title parts (.first-title, .second-title, .third-title), colours may be
+     * gradients, and the alignment is responsive.
+     */
+    const titlePart = (prefixConstant, padding, borderShadow) => {
+        const typography = generateTypographyStyles({ attributes, prefixConstant });
+        const dimensions = generateDimensionsControlStyles({
+            controlName: padding,
+            styleFor: "padding",
+            attributes,
+        });
+        const border = generateBorderShadowStyles({ controlName: borderShadow, attributes });
+        return { typography, padding: dimensions, border };
+    };
+
+    const title1 = titlePart(TITLE_TYPOGRAPHY, TITLE1_PADDING, TITLE1_BORDER_SHADOW);
+    const title2 = titlePart(TITLE2_TYPOGRAPHY, TITLE2_PADDING, TITLE2_BORDER_SHADOW);
+    const title3 = titlePart(TITLE3_TYPOGRAPHY, TITLE3_PADDING, TITLE3_BORDER_SHADOW);
+
+    const titleParts = [
+        { selector: "first-title", styles: title1, color: titleColor, hoverColor: titleHoverColor, bg: titleBgColor, hoverBg: titleHoverBgColor },
+        { selector: "second-title", styles: title2, color: title2Color, hoverColor: title2HoverColor, bg: title2BgColor, hoverBg: title2HoverBgColor },
+        { selector: "third-title", styles: title3, color: title3Color, hoverColor: title3HoverColor, bg: title3BgColor, hoverBg: title3HoverBgColor },
+    ];
+
+    const wrapperSelector = `.eb-advance-heading-wrapper.${blockId}`;
+    const titleSelector = `${wrapperSelector} .eb-ah-title`;
+
+    // A line-height set on a title part only takes effect once the heading's
+    // own line box no longer adds the theme's line-height around the spans.
+    const hasPartLineHeight = titleParts.some(
+        ({ styles }) =>
+            typeof styles.typography.typoStylesDesktop === "string" &&
+            styles.typography.typoStylesDesktop.includes("line-height")
+    );
+
+    const latestTitleStylesDesktop = `
+        ${cssRule(titleSelector, [`text-align: ${align};`, titleMarginDesktop])}
+        ${hasPartLineHeight ? `${titleSelector} {line-height: 1;} ${titleSelector}:has(> span), ${titleSelector}:has(> a) {line-height: 0;}` : ""}
+        ${titleParts
+            .map(({ selector, styles, color, hoverColor, bg, hoverBg }) => `
+                ${cssRule(
+                    `${titleSelector} .${selector}`,
+                    [
+                        getBackgroundCss(bg, color),
+                        getTextColorCss(color),
+                        styles.typography.typoStylesDesktop,
+                        styles.padding.dimensionStylesDesktop,
+                        styles.border.styesDesktop,
+                    ],
+                    styles.border.transitionStyle.trim()
+                )}
+                ${cssRule(`${wrapperSelector}:hover .eb-ah-title .${selector}`, [
+                    getBackgroundCss(hoverBg, hoverColor),
+                    getTextColorCss(hoverColor),
+                    styles.border.stylesHoverDesktop,
+                ])}
+            `)
+            .join("")}
+        ${effects === "marquee"
+            ? `${wrapperSelector}.marquee .eb-ah-title {animation-duration: ${Number(marqueeSpeed) > 0 ? Number(marqueeSpeed) : 10}s;}
+               ${marqueePauseOnHover ? `${wrapperSelector}.marquee .eb-ah-title:hover {animation-play-state: paused;}` : ""}`
+            : ""}
+    `;
+
+    const latestTitleStylesResponsive = (device) => `
+        ${cssRule(titleSelector, [device === "Tab" ? titleMarginTab : titleMarginMobile])}
+        ${titleParts
+            .map(({ selector, styles }) => `
+                ${cssRule(`${titleSelector} .${selector}`, [
+                    styles.typography[`typoStyles${device}`],
+                    styles.padding[`dimensionStyles${device}`],
+                    styles.border[`styes${device}`],
+                ])}
+                ${cssRule(`${wrapperSelector}:hover .eb-ah-title .${selector}`, [
+                    styles.border[`stylesHover${device}`],
+                ])}
+            `)
+            .join("")}
+    `;
+
+    const latestSeparatorStylesDesktop = `
+		.eb-advance-heading-wrapper.${blockId} .eb-ah-separator {
+			color: ${subtitleColor};
+			${separatorMarginDesktop}
+		}
+		.eb-advance-heading-wrapper.${blockId} .eb-ah-separator.line {
+			border-style: none none ${seperatorStyle};
+			${getBorderColorCss(separatorColor)}
+			${separatorLineSizeDesktop}
+			${separatorLineWidthDesktop}
+			${align === "center" ? "margin-left: auto; margin-right: auto" : ""}
+			${align === "right" ? "margin-left: auto; margin-right: 0" : ""}
+		}
+		${cssRule(`.eb-advance-heading-wrapper.${blockId}:hover .eb-ah-separator.line`, [getBorderColorCss(separatorHoverColor)])}
+		.eb-advance-heading-wrapper.${blockId} .eb-ah-separator.icon {
+			text-align: ${align};
+			${separatorIconSizeDesktop}
+		}
+		.eb-advance-heading-wrapper.${blockId} .eb-ah-separator.icon > * {
+			font-size: inherit;
+			width: auto;
+			height: auto;
+		}
+		.eb-advance-heading-wrapper.${blockId} .eb-ah-separator.icon svg {
+			width: 1em;
+			height: 1em;
+			display: block;
+			position: relative;
+		}
+		${cssRule(`.eb-advance-heading-wrapper.${blockId} .eb-ah-separator.icon > *`, [getTextColorCss(separatorColor)])}
+		${cssRule(`.eb-advance-heading-wrapper.${blockId}:hover .eb-ah-separator.icon > *`, [getTextColorCss(separatorHoverColor)])}
+		${cssRule(`.eb-advance-heading-wrapper.${blockId} .eb-ah-separator.icon svg`, [
+            typeof separatorColor === "string" && !separatorColor.includes("gradient") ? `fill: ${separatorColor};` : "",
+        ])}
+	`;
+
+    // Tablet and mobile alignment. Only written when set, so blocks that never
+    // used it keep their stored CSS unchanged.
+    const responsiveAlignStyles = (value) => {
+        if (!value) {
+            return "";
+        }
+        const lineMargins = {
+            left: "margin-left: 0; margin-right: auto;",
+            center: "margin-left: auto; margin-right: auto;",
+            right: "margin-left: auto; margin-right: 0;",
+        };
+        return `
+            ${cssRule(
+                [
+                    wrapperSelector,
+                    titleSelector,
+                    `${wrapperSelector} .eb-ah-subtitle`,
+                    `${wrapperSelector} .eb-ah-separator.icon`,
+                ].join(", "),
+                [`text-align: ${value};`]
+            )}
+            ${cssRule(`${wrapperSelector} .eb-ah-separator.line`, [lineMargins[value] || ""])}
+        `;
+    };
+
+    const titleStylesDesktop = latestDesign ? latestTitleStylesDesktop : legacyTitleStylesDesktop;
+    const titleStylesTab = latestDesign ? latestTitleStylesResponsive("Tab") : legacyTitleStylesTab;
+    const titleStylesMobile = latestDesign ? latestTitleStylesResponsive("Mobile") : legacyTitleStylesMobile;
+    const separatorStylesDesktop = latestDesign ? latestSeparatorStylesDesktop : legacySeparatorStylesDesktop;
+
     // all css styles for large screen width (desktop/laptop) in strings ⬇
     const desktopAllStyles = softMinifyCssStrings(`
 			${wrapperStylesDesktop}
@@ -387,6 +568,7 @@ export default function Style(props) {
 			${titleStylesTab}
 			${subtitleStylesTab}
 			${separatorStylesTab}
+			${responsiveAlignStyles(alignTab)}
 		`);
 
     // all css styles for Mobile in strings ⬇
@@ -395,6 +577,7 @@ export default function Style(props) {
 			${titleStylesMobile}
 			${subtitleStylesMobile}
 			${separatorStylesMobile}
+			${responsiveAlignStyles(alignMobile)}
 		`);
 
     return (

@@ -97,7 +97,7 @@ class Advanced_Heading_Helper
 			);
 
             wp_enqueue_style(
-                'essential-blocks-editor-css',
+                'advanced-heading-controls-css',
                 ADVANCEDHEADING_BLOCK_ADMIN_URL . '/dist/modules.css',
                 array('essential-blocks-iconpicker-css'),
                 $controls_dependencies['version'],

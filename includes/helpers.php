@@ -78,6 +78,7 @@ class Advanced_Heading_Helper
                     'window.eb_conditional_localize = Object.assign(%2$s, window.eb_conditional_localize || {});',
                     wp_json_encode(array(
                         'eb_wp_version' => (float) get_bloginfo('version'),
+                        'eb_wp_version_string' => get_bloginfo('version'),
                         'rest_rootURL' => get_rest_url(),
                         'fontAwesome' => "true"
                     )),
@@ -107,7 +108,7 @@ class Advanced_Heading_Helper
     }
     public static function get_block_register_path($blockname, $blockPath)
     {
-        if ((float) get_bloginfo('version') <= 5.6) {
+        if (version_compare(get_bloginfo('version'), '5.6', '<=')) {
             return $blockname;
         } else {
             return $blockPath;

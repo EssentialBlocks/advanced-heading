@@ -65,9 +65,15 @@ function create_block_advanced_heading_block_init() {
 
     $script_asset_path = ADVANCEDHEADING_BLOCK_ADMIN_PATH . "/dist/index.asset.php";
     if ( ! file_exists( $script_asset_path ) ) {
-        throw new Error(
-            'You need to run `npm start` or `npm run build` for the "block/testimonial" block first.'
-        );
+        // An uncaught Error on `init` white-screens the whole site, so
+        // report the missing build in wp-admin and stop registering instead.
+        add_action( 'admin_notices', function () {
+            echo '<div class="notice notice-error"><p>' . esc_html__(
+                'Advanced Heading: the build files are missing. Run `npm run build` or reinstall the plugin.',
+                'advanced-heading'
+            ) . '</p></div>';
+        } );
+        return;
     }
     $index_js     = ADVANCEDHEADING_BLOCK_ADMIN_URL . 'dist/index.js';
     $script_asset = require $script_asset_path;

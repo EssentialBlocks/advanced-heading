@@ -4,7 +4,7 @@ Tags: block, blocks, heading, Advanced Heading, title, title block, title with s
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -93,6 +93,13 @@ This plugin can load fonts from Google Fonts, a service provided by Google LLC.
 To avoid the request, keep the heading typography on Default or a font your theme already provides.
 
 == Changelog ==
+
+= 1.2.2 - 12/11/2026 =
+* Fixed: Editor controls style conflict with Essential Blocks
+* Fixed: Animation issue with Essential Blocks
+* Fixed: Animation preview in editor
+* Improved: Security enhancements
+* Few minor bug fixes & improvements
 
 = 1.2.1 - 27/10/2026 =
 * Improved: Security enhancements

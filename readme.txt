@@ -4,7 +4,7 @@ Tags: block, blocks, heading, Advanced Heading, title, title block, title with s
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -94,13 +94,17 @@ To avoid the request, keep the heading typography on Default or a font your them
 
 == Changelog ==
 
-= 1.2.2 - 02/11/2026 =
+= 1.2.3 - 15/11/2026 =
+* Fixed: Unsaved changes issue in editor
 * Improved: Security enhancements
-* Fixed: Editor sidebar controls conflicting with Essential Blocks' styles
-* Fixed: Animated blocks appeared without playing their animation when Essential Blocks is active
-* Fixed: Entrance animations not previewing in the block editor
-* Fixed: Block icon hard to see when highlighted in the inserter and List View
-* Fixed: Chrome console warning about a deprecated DOM event
+* Few minor bug fixes & improvements
+
+= 1.2.2 - 12/11/2026 =
+* Fixed: Editor controls style conflict with Essential Blocks
+* Fixed: Animation issue with Essential Blocks
+* Fixed: Animation preview in editor
+* Improved: Security enhancements
+* Few minor bug fixes & improvements
 
 = 1.2.1 - 27/10/2026 =
 * Improved: Security enhancements

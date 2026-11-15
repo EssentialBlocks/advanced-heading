@@ -94,12 +94,13 @@ To avoid the request, keep the heading typography on Default or a font your them
 
 == Changelog ==
 
-= 1.2.2 - 12/11/2026 =
-* Fixed: Editor controls style conflict with Essential Blocks
-* Fixed: Animation issue with Essential Blocks
-* Fixed: Animation preview in editor
+= 1.2.2 - 02/11/2026 =
 * Improved: Security enhancements
-* Few minor bug fixes & improvements
+* Fixed: Editor sidebar controls conflicting with Essential Blocks' styles
+* Fixed: Animated blocks appeared without playing their animation when Essential Blocks is active
+* Fixed: Entrance animations not previewing in the block editor
+* Fixed: Block icon hard to see when highlighted in the inserter and List View
+* Fixed: Chrome console warning about a deprecated DOM event
 
 = 1.2.1 - 27/10/2026 =
 * Improved: Security enhancements

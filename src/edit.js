@@ -102,6 +102,7 @@ export default function Edit(props) {
         classHook,
         source,
         designVersion,
+        stackedTitle,
     } = attributes;
 
     const latestDesign = isLatestDesign(attributes);
@@ -174,7 +175,7 @@ export default function Edit(props) {
 
     const latestContent = (
         <div
-            className={["eb-advance-heading-wrapper", blockId, preset, effects]
+            className={["eb-advance-heading-wrapper", blockId, preset, effects, stackedTitle && "stacked-title"]
                 .filter(Boolean)
                 .join(" ")}
             data-id={blockId}
@@ -196,7 +197,7 @@ export default function Edit(props) {
                         />
                         {title2Text && (
                             <>
-                                &nbsp;
+                                {!stackedTitle && <>&nbsp;</>}
                                 <RichText
                                     tagName="span"
                                     className="second-title"
@@ -208,7 +209,7 @@ export default function Edit(props) {
                         )}
                         {title3Text && (
                             <>
-                                &nbsp;
+                                {!stackedTitle && <>&nbsp;</>}
                                 <RichText
                                     tagName="span"
                                     className="third-title"

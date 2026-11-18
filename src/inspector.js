@@ -72,6 +72,7 @@ const {
     EBIconPicker
 } = window.EBAdvHeadingControls;
 
+import ColorTypeControl from "./color-type-control";
 import objAttributes from "./attributes";
 
 function Inspector(props) {
@@ -240,16 +241,14 @@ function Inspector(props) {
                 typographyPrefixConstant={typography}
                 resRequiredProps={resRequiredProps}
             />
-            <ColorControl
+            <ColorTypeControl
                 label={__("Text Color", "essential-blocks")}
                 color={color}
-                isGradient={true}
                 onChange={(value) => setAttributes({ [colorAttr]: value })}
             />
-            <ColorControl
+            <ColorTypeControl
                 label={__("Hover Text Color", "essential-blocks")}
                 color={hoverColor}
-                isGradient={true}
                 onChange={(value) => setAttributes({ [hoverColorAttr]: value })}
             />
             {!isGradientColor(color) && (

@@ -136,3 +136,57 @@
 		animation: none;
 	}
 }
+
+.eb-ah-color-type {
+	.eb-ah-color-type-buttons {
+		display: flex;
+		margin-bottom: 8px;
+
+		.components-button {
+			flex: 1;
+			justify-content: center;
+		}
+	}
+}
+
+.eb-ah-gradient-editor {
+	.eb-ah-gradient-type {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 10px;
+	}
+
+	.eb-ah-gradient-label {
+		font-size: 11px;
+		font-weight: 500;
+		text-transform: uppercase;
+	}
+
+	.eb-ah-gradient-stop-color {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+
+		margin-bottom: 10px;
+
+		// Move the control's own bottom margin onto the row so the × centres on the label.
+		.eb-color-base {
+			flex: 1;
+			margin-bottom: 0 !important;
+		}
+
+		.eb-ah-gradient-remove {
+			flex: none;
+			font-size: 18px;
+			line-height: 1;
+			text-decoration: none;
+		}
+	}
+
+	.eb-ah-gradient-add {
+		width: 100%;
+		justify-content: center;
+		margin: 4px 0 12px;
+	}
+}

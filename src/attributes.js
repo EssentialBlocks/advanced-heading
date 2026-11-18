@@ -72,6 +72,11 @@ const attributes = {
         type: "boolean",
         default: true,
     },
+    // Puts the first, second and third title on their own lines (latest design only).
+    stackedTitle: {
+        type: "boolean",
+        default: false,
+    },
     title2Text: {
         type: "string",
     },

@@ -89,6 +89,7 @@ function Inspector(props) {
         subtitleTagName,
         subtitleText,
         displaySubtitle,
+        stackedTitle,
         displaySeperator,
         titleColor,
         titleHoverColor,
@@ -407,6 +408,14 @@ function Inspector(props) {
                                                             onChange={(text) => setAttributes({ title3Text: text })}
                                                         />
                                                     </>
+                                                )}
+                                                {latestDesign && (
+                                                    <ToggleControl
+                                                        label={__("Stacked Titles", "advanced-heading")}
+                                                        help={__("Show the first, second and third title on separate lines.", "advanced-heading")}
+                                                        checked={!!stackedTitle}
+                                                        onChange={(value) => setAttributes({ stackedTitle: value })}
+                                                    />
                                                 )}
                                                 <ToggleControl
                                                     label={__("Display Subtitle", "essential-blocks")}

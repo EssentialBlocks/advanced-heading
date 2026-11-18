@@ -104,6 +104,19 @@
 	}
 }
 
+/* Stacked titles: each title part on its own line (no &nbsp; is saved between them). */
+.eb-advance-heading-wrapper.stacked-title .eb-ah-title {
+	&>.first-title,
+	&>.second-title,
+	&>.third-title,
+	&>.eb-ah-link,
+	&>.eb-ah-link>.first-title,
+	&>.eb-ah-link>.second-title,
+	&>.eb-ah-link>.third-title {
+		display: block;
+	}
+}
+
 @keyframes eb-ah-marquee {
 	0% {
 		transform: translateX(100%);

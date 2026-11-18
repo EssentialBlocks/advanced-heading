@@ -67,7 +67,7 @@ const LegacySave = ({ attributes }) => {
 /**
  * The title parts: first title, then the optional second and third titles.
  */
-export const TitleParts = ({ titleText, title2Text, title3Text }) => (
+export const TitleParts = ({ titleText, title2Text, title3Text, stacked = false }) => (
     <>
         <RichText.Content
             tagName="span"
@@ -76,7 +76,7 @@ export const TitleParts = ({ titleText, title2Text, title3Text }) => (
         />
         {title2Text && (
             <>
-                &nbsp;
+                {!stacked && <>&nbsp;</>}
                 <RichText.Content
                     tagName="span"
                     className="second-title"
@@ -86,7 +86,7 @@ export const TitleParts = ({ titleText, title2Text, title3Text }) => (
         )}
         {title3Text && (
             <>
-                &nbsp;
+                {!stacked && <>&nbsp;</>}
                 <RichText.Content
                     tagName="span"
                     className="third-title"
@@ -124,6 +124,7 @@ const Save = ({ attributes }) => {
         enableLink,
         titleLink,
         openInNewTab,
+        stackedTitle,
     } = attributes;
 
     // The post title is rendered on the server (see advanced-heading.php).
@@ -133,7 +134,7 @@ const Save = ({ attributes }) => {
 
     const TagName = sanitizeTag(tagName, "h2");
     const hasLink = enableLink && typeof titleLink === "string" && titleLink.length > 0;
-    const wrapperClasses = ["eb-advance-heading-wrapper", blockId, preset, effects]
+    const wrapperClasses = ["eb-advance-heading-wrapper", blockId, preset, effects, stackedTitle && "stacked-title"]
         .filter(Boolean)
         .join(" ");
     const parentClasses = ["eb-parent-wrapper", `eb-parent-${blockId}`, classHook]
@@ -151,6 +152,7 @@ const Save = ({ attributes }) => {
             titleText={titleText}
             title2Text={title2Text}
             title3Text={title3Text}
+            stacked={!!stackedTitle}
         />
     );
 
